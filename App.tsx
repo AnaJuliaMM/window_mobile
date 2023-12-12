@@ -4,6 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Predictions from './components/Predictions';
+import Temperature from './components/Temperature';
+import DayPrediction from './components/DayPrediction';
+import React from 'react';
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -47,11 +50,7 @@ export default function App() {
          
           )
           }
-
-      
-
-          {/* // <TodayPrediction city_id='Sorocaba' temperature={17}/> */}
-          <Predictions></Predictions>
+          <Temperature />
       </View>
     </LinearGradient>
   );

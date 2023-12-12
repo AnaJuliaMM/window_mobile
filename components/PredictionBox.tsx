@@ -1,14 +1,20 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
+import Prediction from './Prediction'
 
-export default function Predictions() {
+export default function PredictionBox() {
   return (
     <View style={styles.wrapper}>
         <View style={styles.header}>
-            <Text>PREDIÇÃO HORÁRIA</Text>
+            <Text style={{fontSize: 13}}>PREDIÇÃO HORÁRIA</Text>
             <Image
                 source={require('../assets/setting.png')}
                 style={{ width: 22, height: 22 }}/>
+        </View>
+        <View style={styles.predictions}>
+            <Prediction shift='Agora' hour={10} prediction={17}/>
+            <Prediction shift='Tarde' hour={13} prediction={22}/>
+            <Prediction shift='Noite' hour={18} prediction={14}/>
         </View>
     </View>
   )
@@ -27,6 +33,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    
+    predictions:{
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+
+
+    }
 
 })

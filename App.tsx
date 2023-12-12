@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Predictions from './components/Predictions';
+import PredictionBox from './components/PredictionBox';
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -51,7 +51,7 @@ export default function App() {
       
 
           {/* // <TodayPrediction city_id='Sorocaba' temperature={17}/> */}
-          <Predictions></Predictions>
+          <PredictionBox></PredictionBox>
       </View>
     </LinearGradient>
   );

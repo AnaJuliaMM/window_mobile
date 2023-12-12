@@ -6,12 +6,12 @@ import Predictions from './components/Predictions';
 import Window from './components/Window';
 
 export default function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState< Response | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/10/');
+        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/');
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -33,7 +33,7 @@ export default function App() {
     
           </View>
         ) : (
-          <Text>Carregando dados...</Text>
+          <Text> Carregando dados...</Text>
         )}
 
       </View>

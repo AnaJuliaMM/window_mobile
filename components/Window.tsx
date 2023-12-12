@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    marginBottom: 10,
+    marginBottom: 10
   },
   imageContainer: {
     alignItems: 'center',
@@ -46,10 +46,11 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
+    margin: 20
   },
   statusText: {
     color: 'white',
     fontWeight: 'bold',
-    marginTop: 5,
+    margin: 5,
   },
 });

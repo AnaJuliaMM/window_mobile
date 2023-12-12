@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import DayPrediction from './components/DayPrediction';
 import { LinearGradient } from 'expo-linear-gradient';
-import TodayPrediction from './components/TodayPrediction';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Predictions from './components/Predictions';
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -12,8 +11,8 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/10/'); // Substitua pela URL do seu endpoint
-        setData(response.data); // Assume que os dados são um objeto JSON
+        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/10/'); 
+        setData(response.data);
         console.log(data);
         
       } catch (error) {
@@ -52,6 +51,7 @@ export default function App() {
       
 
           {/* // <TodayPrediction city_id='Sorocaba' temperature={17}/> */}
+          <Predictions></Predictions>
       </View>
     </LinearGradient>
   );
@@ -62,5 +62,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+
   },
 });

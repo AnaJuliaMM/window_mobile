@@ -18,8 +18,7 @@ const styles = StyleSheet.create({
     wrapper:{
         height: 134,
         width: 323,
-        backgroundColor: '#fff',
-        opacity: 0.45,
+        backgroundColor: 'rgba(255, 255, 255, 0.45)',
         borderRadius: 5,
         padding: 10
     },

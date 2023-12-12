@@ -11,7 +11,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/11/');
+        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/10/');
         setData(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -22,17 +22,20 @@ export default function App() {
   }, []);
 
   return (
+    
     <LinearGradient colors={['#608DE6', '#7FCED9']} style={styles.container}>
+       
       <View style={styles.innerContainer}>
         {data ? (
           <View>
             <Window is_raining={data.is_raining} />
+                <Predictions />
+    
           </View>
         ) : (
           <Text>Carregando dados...</Text>
         )}
-        {/* Renderiza o componente Predictions */}
-        <Predictions />
+
       </View>
     </LinearGradient>
   );

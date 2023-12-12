@@ -54,6 +54,10 @@ export default function Temperature() {
     <View style={styles.header}>
       <Text style={styles.text}>72º</Text>
       {renderWeatherIcon()}
+      <View style={styles.state}>
+        <Text style={styles.stateName}>Umidade:</Text>
+        <Text>52kg/m³</Text>
+      </View>
       <View style={styles.iconContainer}>
         <TouchableOpacity style={styles.button} onPress={() => handleWeatherChange('ensolarado')}>
           <Text>1</Text>
@@ -108,13 +112,12 @@ const styles = StyleSheet.create({
   },
   state:{
     flexDirection: 'row',
-    width: 115,
+    width: 135,
     justifyContent: 'space-between',
   },
   stateName:{
     width: 93,
     fontSize: 15,
-    marginRight: 20,
     textAlign: 'center',
   },
 });

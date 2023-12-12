@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.15,
   },
   value: {
-    fontSize: 25,
+    fontSize: 20,
     marginBottom: 8,
     color: '#fff',
   },

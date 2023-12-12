@@ -12,7 +12,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://api.exemplo.com/previsao/'); // Substitua pela URL do seu endpoint
+        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/10/'); // Substitua pela URL do seu endpoint
         setData(response.data); // Assume que os dados são um objeto JSON
         console.log(data);
         
@@ -26,7 +26,6 @@ export default function App() {
     fetchData();
   }, []); 
 
-
   return (
     <LinearGradient
       colors={['#608DE6', '#7FCED9']}
@@ -34,7 +33,19 @@ export default function App() {
     >
       <View> 
           {data ? ( <Text>Dados recebidos: {JSON.stringify(data)}</Text>) : (
-            <Text>Carregando dados...</Text>
+           <View> 
+           {data !== null ? (
+             <Text>
+               if(data.is_raining){
+                true
+            
+               }
+             </Text>
+           ) : (
+             <Text>Carregando dados...</Text>
+           )}
+         </View>
+         
           )
           }
 

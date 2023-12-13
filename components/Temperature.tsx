@@ -158,13 +158,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   text: {
-<<<<<<< HEAD
-    fontSize: 120,
-    color: 'black',
-=======
     fontSize: 110,
     color: 'white',
->>>>>>> 03dc32317137eea373f660a1499bbca7c7ee5be5
     fontFamily: 'sans-serif',
     marginTop: -30,
     paddingTop: 0,

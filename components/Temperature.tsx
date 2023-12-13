@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 150,
+    fontSize: 110,
     color: 'white',
     fontFamily: 'sans-serif',
   },
@@ -176,12 +176,14 @@ const styles = StyleSheet.create({
   state: {
     flexDirection: 'row',
     width: 135,
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   stateName: {
     width: 97,
     fontSize: 17,
     textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold'
   },
   humidity: {
     fontSize: 16,

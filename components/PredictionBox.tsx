@@ -93,8 +93,10 @@ const styles = StyleSheet.create({
     },
     predictions:{
         width: '100%',
+        height: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        paddingTop: 9
     }
 
 })

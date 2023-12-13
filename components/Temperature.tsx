@@ -118,12 +118,6 @@ export default function Temperature() {
       );
     }
   };
-  
-
-  const handleWeatherChange = (newState: React.SetStateAction<string>) => {
-    // A lógica para alterar o estado do clima pode permanecer a mesma
-    // ...
-  };
 
   return (
     <View style={styles.header}>
@@ -149,9 +143,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 150,
+    fontSize: 120,
     color: 'white',
     fontFamily: 'sans-serif',
+    marginTop: -30,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -162,17 +157,6 @@ const styles = StyleSheet.create({
     height: 22,
     marginRight: 10,
   },
-  button: {
-    width: 50,
-    height: 30,
-    backgroundColor: 'white',
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'gray',
-    paddingHorizontal: 10,
-  },
   state: {
     flexDirection: 'row',
     width: 135,
@@ -180,11 +164,12 @@ const styles = StyleSheet.create({
   },
   stateName: {
     width: 97,
-    fontSize: 17,
+    fontSize: 14,
     textAlign: 'center',
   },
   humidity: {
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'center',
+    marginBottom: 20,
   }
 });

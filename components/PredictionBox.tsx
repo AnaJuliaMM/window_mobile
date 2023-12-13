@@ -35,7 +35,7 @@ export default function PredictionBox({ apiResponse, loading }: PredictionBoxInt
   return (
     <View style={styles.wrapper}>
         <View style={styles.header}>
-            <Text style={{fontSize: 13}}>PREDIÇÃO HORÁRIA</Text>
+            <Text style={{fontWeight: 'bold'}}>PREDIÇÃO HORÁRIA</Text>
             <Image
                 source={require('../assets/setting.png')}
                 style={{ width: 22, height: 22 }}/>

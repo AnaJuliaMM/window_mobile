@@ -12,19 +12,21 @@ export default function Window({ is_raining }: WindowProps) {
       <Text style={styles.text}>Status da janela:</Text>
       {is_raining ? (
         <View style={styles.imageContainer}>
+          <Text style={styles.statusText}>Aberta</Text>
           <Image
             source={require('../assets/opened_window.png')}
             style={styles.image}
           />
-          <Text style={styles.statusText}>Aberta</Text>
+          
         </View>
       ) : (
         <View style={styles.imageContainer}>
+         <Text style={styles.statusText}>Fechada</Text>
           <Image
             source={require('../assets/closed_window.png')}
             style={styles.image}
           />
-          <Text style={styles.statusText}>Fechada</Text>
+        
         </View>
       )}
     </View>
@@ -46,11 +48,11 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    margin: 20
+    margin: 8
   },
   statusText: {
     color: 'white',
     fontWeight: 'bold',
-    margin: 5,
+    margin: 2,
   },
 });

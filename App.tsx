@@ -1,56 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import Predictions from './components/Predictions';
-import Temperature from './components/Temperature';
-import DayPrediction from './components/DayPrediction';
-import React from 'react';
+import Window from './components/Window';
+import Header from './components/Header';
+import PredictionBox from './components/PredictionBox';
+import { ApiResponseSensor } from './utils/API';
+import { fetchData, fetchSensorsData, retrieveSensorData, ApiResponse } from './utils/API'
+
 
 export default function App() {
-  const [data, setData] = useState(null);
+  const [predictionApiResponse, SetPredictionApiResponse] = useState< ApiResponse[] >([]);
+  const [sensorsApiResponse, SetSensorsApiResponse] = useState<ApiResponseSensor [] >([]);
+  const [uniqueSensor, setUniqueSensor] = useState< ApiResponseSensor | null>(null);
+  const [isLoadingData, setIsLoadingData] = useState(false);
+  const [data, setData] = useState< ApiResponseSensor | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataFromApi = async () => {
       try {
-        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/10/'); 
-        setData(response.data);
-        console.log(data);
-        
+        setIsLoadingData(true)
+        const predictionsApi = await fetchData()
+        const sensorsApi = await fetchSensorsData()
+        const uniqueSensor =  await retrieveSensorData(15)
+        SetPredictionApiResponse(predictionsApi)
+        SetSensorsApiResponse(sensorsApi)
+        setUniqueSensor(uniqueSensor)
       } catch (error) {
-        console.log(error);
-        
         console.error('Erro ao buscar dados:', error);
+      } finally {
+        setIsLoadingData(false)
       }
     };
 
-    fetchData();
-  }, []); 
+    fetchDataFromApi();
+  }, []);
+
 
   return (
-    <LinearGradient
-      colors={['#608DE6', '#7FCED9']}
-      style={styles.container}
-    >
-      <View> 
-          {data ? ( <Text>Dados recebidos: {JSON.stringify(data)}</Text>) : (
-           <View> 
-           {data !== null ? (
-             <Text>
-               if(data.is_raining){
-                true
-            
-               }
-             </Text>
-           ) : (
-             <Text>Carregando dados...</Text>
-           )}
-         </View>
-         
-          )
-          }
-          <Temperature />
+    <LinearGradient colors={['#608DE6', '#7FCED9']} style={styles.container}>
+       
+      <View style={styles.innerContainer}>
+        <Header/>
+        {/* colocar o componente Temperature aqui */}
+        <Window is_raining={uniqueSensor?.is_raining || false} />
+        <PredictionBox apiResponse={predictionApiResponse} loading={isLoadingData}/>
       </View>
     </LinearGradient>
   );
@@ -59,8 +52,22 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-
+  },
+  innerContainer: {
+    height: '100%',
+    justifyContent: 'space-around',
   },
 });
+
+
+
+// Código removido
+// {data ? (
+//   <View>
+
+//     {/* colocar o componente Temperature aqui */}
+    
+//   </View>
+// ) : (
+//   <Text> Carregando dados...</Text>
+// )}

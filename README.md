@@ -13,15 +13,15 @@ Clone esse repositório :
 https://github.com/AnaJuliaMM/window_mobile.git
 
 Instale o CLI:
-```http
+```
  npm install -g react-native-cli
 ```
 Instale o npm:
-```http
+```
  npm i
 ```
 Inicie o App:
-```http
+```
  npx expo start
 ```
 Leia o QR Code com o Expo App (Android) ou Câmera (IOS) e veja o aplicativo rodando!

@@ -4,10 +4,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 import Window from './components/Window';
 import Header from './components/Header';
-import Predictions from './components/Predictions';
+import PredictionBox from './components/PredictionBox';
+import { ApiResponseSensor } from './utils/API';
+
 
 export default function App() {
-  const [data, setData] = useState< Response | null>(null);
+  const [data, setData] = useState< ApiResponseSensor | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +34,7 @@ export default function App() {
             <Header/>
             {/* colocar o componente Temperature aqui */}
             <Window is_raining={data.is_raining} />
-            <Predictions/>
+            <PredictionBox/>
             
           </View>
         ) : (

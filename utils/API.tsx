@@ -20,6 +20,11 @@ export interface ApiResponse {
   wind_velocity: number;
 }
 
+export interface ApiResponseSensor {
+  id: number,
+  is_raining: boolean
+}
+
 export const fetchData = async (endpoint: string): Promise<ApiResponse[]> => {
   try {
     const response: AxiosResponse<ApiResponse[]> = await axios.get(`${BASE_URL}/${endpoint}`);

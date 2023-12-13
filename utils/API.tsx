@@ -27,10 +27,10 @@ export interface ApiResponseSensor {
 }
 
 
-// GET Request
-export const fetchData = async (endpoint: string): Promise<ApiResponse[] | ApiResponseSensor []> => {
+// GET Request - Predicions
+export const fetchData = async (): Promise<ApiResponse[] > => {
   try {
-    const response: AxiosResponse<ApiResponse[] | ApiResponseSensor []> = await axios.get(`${BASE_URL}/${endpoint}`);
+    const response: AxiosResponse<ApiResponse[]> = await axios.get(`${BASE_URL}/previsao`);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
@@ -40,3 +40,29 @@ export const fetchData = async (endpoint: string): Promise<ApiResponse[] | ApiRe
   }
 };
  
+// GET Request - Sensor
+export const fetchSensorsData = async (): Promise<ApiResponseSensor []> => {
+  try {
+    const response: AxiosResponse< ApiResponseSensor []> = await axios.get(`${BASE_URL}/sensor`);
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    console.error('Erro ao consumir a API:', axiosError.message);
+    console.error('Status do erro:', axiosError.response?.status);
+    throw new Error('Falha ao obter dados da API');
+  }
+}
+
+
+// GET Request - Retrieve sensor
+export const retrieveSensorData = async (id: number): Promise<ApiResponseSensor> => {
+  try {
+    const response: AxiosResponse< ApiResponseSensor> = await axios.get(`${BASE_URL}/sensor/${id}`);
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    console.error('Erro ao consumir a API:', axiosError.message);
+    console.error('Status do erro:', axiosError.response?.status);
+    throw new Error('Falha ao obter dados da API');
+  }
+}

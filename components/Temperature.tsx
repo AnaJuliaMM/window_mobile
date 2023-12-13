@@ -1,80 +1,143 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import axios from 'axios';
+
+interface WeatherData {
+  city_id: number;
+  city_name: string;
+  country: string;
+  date: string;
+  date_br: string;
+  humidity: number;
+  id: number;
+  precipitation: number;
+  pressure: number;
+  state: string;
+  temperature: number;
+  wind_direction: string;
+  wind_direction_degrees: number | null;
+  wind_gust: number;
+  wind_velocity: number;
+}
 
 export default function Temperature() {
-  const [weatherState, setWeatherState] = useState('ensolarado');
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
-  const renderWeatherIcon = () => {
-    switch (weatherState) {
-        case 'ensolarado':
-          return (
-              <View style={styles.state}>
-                  <Text style={styles.stateName}>Ensolarado</Text>
-                  <Image source={require('../assets/sun.png')} style={styles.icon} />
-              </View>
-          )
-      case 'nublado':
-        return (
-            <View style={styles.state}>
-                <Text style={styles.stateName}>Nublado</Text>
-                <Image source={require('../assets/cloud.png')} style={styles.icon} />
-            </View>
-        )
-      case 'noite':
-        return (
-            <View style={styles.state}>
-                <Text style={styles.stateName}>Noite</Text>
-                <Image source={require('../assets/moon.png')} style={styles.icon} />
-            </View>
-        )
-      case 'chuva':
-        return (
-            <View style={styles.state}>
-                <Text style={styles.stateName}>Chuva</Text>
-                <Image source={require('../assets/raincloud.png')} style={styles.icon} />
-            </View>
-        )
-      case 'tempestade':
-        return (
-            <View style={styles.state}>
-                <Text style={styles.stateName}>Tempestade</Text>
-                <Image source={require('../assets/storm.png')} style={styles.icon} />
-            </View>
-        )
-      default:
-        return null;
-    }
+  const getCurrentTimeInBrazil = () => {
+    const now = new Date();
+    const offset = -7;
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    return new Date(utc + 3600000 * offset);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<WeatherData[]>('http://sensorwindow.pythonanywhere.com/api/previsao/');
+        const data: WeatherData[] = response.data;
+
+        if (data.length > 0) {
+          const currentDate = getCurrentTimeInBrazil();
+          const currentHour = currentDate.getHours();
+
+          // Filtra apenas os dados futuros
+          const futureData = data.filter(item => {
+            const itemDate = new Date(item.date);
+            return itemDate > currentDate;
+          });
+
+          // Ordena os dados futuros pelo horário mais próximo
+          const sortedData = futureData.sort((a, b) => {
+            const diffA = Math.abs(currentHour - new Date(a.date).getHours());
+            const diffB = Math.abs(currentHour - new Date(b.date).getHours());
+            return diffA - diffB;
+          });
+
+          // Pega o dado mais próximo
+          const closestData = sortedData[0];
+
+          setWeatherData(closestData);
+          console.log(closestData);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const renderWeatherIcon = () => {
+    if (!weatherData) {
+      return null;
+    }
+  
+    const { humidity, wind_velocity } = weatherData;
+    const currentHour = new Date(weatherData.date).getHours();
+  
+    // Lógica para determinar o estado do tempo com base nas condições
+    if (humidity > 80) {
+      // Chuva
+      return (
+        <View style={styles.state}>
+          <Text style={styles.stateName}>Chuva</Text>
+          <Image source={require('../assets/raincloud.png')} style={styles.icon} />
+        </View>
+      );
+    } else if (humidity >= 70 && humidity <= 79) {
+      // Nublado
+      return (
+        <View style={styles.state}>
+          <Text style={styles.stateName}>Nublado</Text>
+          <Image source={require('../assets/cloud.png')} style={styles.icon} />
+        </View>
+      );
+    } else if (humidity > 80 && wind_velocity > 30) {
+      // Tempestade
+      return (
+        <View style={styles.state}>
+          <Text style={styles.stateName}>Tempestade</Text>
+          <Image source={require('../assets/storm.png')} style={styles.icon} />
+        </View>
+      );
+    } else if (currentHour >= 6 && currentHour < 18) {
+      // Ensolarado
+      return (
+        <View style={styles.state}>
+          <Text style={styles.stateName}>Ensolarado</Text>
+          <Image source={require('../assets/sun.png')} style={styles.icon} />
+        </View>
+      );
+    } else {
+      // Noite
+      return (
+        <View style={styles.state}>
+          <Text style={styles.stateName}>Noite</Text>
+          <Image source={require('../assets/moon.png')} style={styles.icon} />
+        </View>
+      );
+    }
+  };
+  
+
   const handleWeatherChange = (newState: React.SetStateAction<string>) => {
-    setWeatherState(newState);
+    // A lógica para alterar o estado do clima pode permanecer a mesma
+    // ...
   };
 
   return (
     <View style={styles.header}>
-      <Text style={styles.text}>72º</Text>
-      {renderWeatherIcon()}
-      <View style={styles.state}>
-        <Text style={styles.stateName}>Umidade:</Text>
-        <Text>52kg/m³</Text>
-      </View>
-      <View style={styles.iconContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => handleWeatherChange('ensolarado')}>
-          <Text>1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handleWeatherChange('nublado')}>
-          <Text>2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handleWeatherChange('noite')}>
-          <Text>3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handleWeatherChange('chuva')}>
-          <Text>4</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handleWeatherChange('tempestade')}>
-          <Text>5</Text>
-        </TouchableOpacity>
-      </View>
+      {weatherData && (
+        <>
+          <Text style={styles.text}>{weatherData.temperature}º</Text>
+          {renderWeatherIcon()}
+          <View style={styles.state}>
+            <Text style={styles.stateName}>Umidade:</Text>
+            <Text style={styles.humidity}>{weatherData.humidity}%</Text>
+          </View>
+        </>
+      )}
+      {/* Restante do componente permanece o mesmo */}
     </View>
   );
 }
@@ -103,21 +166,25 @@ const styles = StyleSheet.create({
     width: 50,
     height: 30,
     backgroundColor: 'white',
-    borderRadius: 5, // Borda arredondada
-    justifyContent: 'center', // Alinha o conteúdo verticalmente no centro
-    alignItems: 'center', // Alinha o conteúdo horizontalmente no centro
-    borderWidth: 1, // Largura da borda
-    borderColor: 'gray', // Cor da borda
-    paddingHorizontal: 10, // Espaçamento horizontal interno
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'gray',
+    paddingHorizontal: 10,
   },
-  state:{
+  state: {
     flexDirection: 'row',
     width: 135,
     justifyContent: 'space-between',
   },
-  stateName:{
-    width: 93,
-    fontSize: 15,
+  stateName: {
+    width: 97,
+    fontSize: 17,
     textAlign: 'center',
   },
+  humidity: {
+    fontSize: 16,
+    textAlign: 'center',
+  }
 });

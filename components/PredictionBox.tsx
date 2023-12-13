@@ -11,20 +11,23 @@ export default function PredictionBox() {
     // Código APP.tsx
     const [apiResponse, SetApiResponse] = useState< ApiResponse[]>([]);
     const [loading, setLoading] = useState(false);
+    // Tratar o json
+    const hours = [10, 13, 18]
+    const [predictions, setPredictions] = useState <ApiResponse[] >([])
 
-
-    const fetchDataFromApi = async () => {
-        try {
-          setLoading(true);
-          const response = await fetchData('previsao'); 
-          SetApiResponse(response);
-        } finally {
-          setLoading(false);
-        }
-    };
 
     // Traz a previsão quando o página carrega
     useEffect(() => {
+        const fetchDataFromApi = async () => {
+            try {
+              setLoading(true);
+              const response = await fetchData('previsao'); 
+              SetApiResponse(response);
+            } finally {
+              setLoading(false);
+            }
+        };
+
         fetchDataFromApi();
     }, []);
 
@@ -38,22 +41,15 @@ export default function PredictionBox() {
     }
 
 
-    // Tratar o json
-    const hours = [10, 13, 18]
-    const [predictions, setPredictions] = useState <ApiResponse[] >([])
-
-    //Função de filtragem
-    const filterByHour = (ApiResponse: ApiResponse[], hour: number) => {
-        return ApiResponse.filter((prediction)=> { 
-            return hour === new Date(prediction.date).getHours();
-        })
-
+    const filterByHour = (ApiResponse: ApiResponse[], numbers: number[]) => {
+        const predictions: ApiResponse[] = []
+        hours.forEach(hour=>
+            predictions.push(...ApiResponse.filter(
+                (prediction)=> new Date(prediction.date).getHours() == hour))
+        )
+        return predictions
     }
 
-    // Chamar a função de comparação para cada hora
-    hours.forEach((hour)=>{
-        setPredictions(predictions.concat(filterByHour(apiResponse, hour)))
-    })
 
 
 
@@ -67,12 +63,11 @@ export default function PredictionBox() {
                 style={{ width: 22, height: 22 }}/>
         </View>
         <View style={styles.predictions}>
-            {predictions.map((prediction)=> (
-                <Prediction shift='Novo' hour={new Date(prediction.date).getHours()} prediction={prediction.temperature} />
-            ))}
+         
+            {filterByHour(apiResponse, hours).map((prediction, index) =>(
+                <Prediction key={prediction.id} hour= {new Date(prediction.date).getHours()} prediction={prediction.temperature}/>
+            ) )}
             
-            <Prediction shift='Tarde' hour={13} prediction={22}/>
-            <Prediction shift='Noite' hour={18} prediction={14}/>
         </View>
     </View>
   )

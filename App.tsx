@@ -1,57 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import PredictionBox from './components/PredictionBox';
+import Window from './components/Window';
+import Header from './components/Header';
+import Predictions from './components/Predictions';
 
 export default function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState< Response | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/chuva/10/'); 
+        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/');
         setData(response.data);
-        console.log(data);
-        
       } catch (error) {
-        console.log(error);
-        
         console.error('Erro ao buscar dados:', error);
       }
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   return (
-    <LinearGradient
-      colors={['#608DE6', '#7FCED9']}
-      style={styles.container}
-    >
-      <View> 
-          {data ? ( <Text>Dados recebidos: {JSON.stringify(data)}</Text>) : (
-           <View> 
-           {data !== null ? (
-             <Text>
-               if(data.is_raining){
-                true
+    
+    <LinearGradient colors={['#608DE6', '#7FCED9']} style={styles.container}>
+       
+      <View style={styles.container}>
+        {data ? (
+          <View>
+            <Header/>
+            {/* colocar o componente Temperature aqui */}
+            <Window is_raining={data.is_raining} />
+            <Predictions/>
             
-               }
-             </Text>
-           ) : (
-             <Text>Carregando dados...</Text>
-           )}
-         </View>
-         
-          )
-          }
+          </View>
+        ) : (
+          <Text> Carregando dados...</Text>
+        )}
 
-      
-
-          {/* // <TodayPrediction city_id='Sorocaba' temperature={17}/> */}
-          <PredictionBox></PredictionBox>
       </View>
     </LinearGradient>
   );
@@ -62,6 +49,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-
+  },
+  innerContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
   },
 });

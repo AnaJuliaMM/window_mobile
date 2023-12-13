@@ -94,13 +94,12 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    width: 400,
-    height: windowHeight * 0.15,
+    padding: 18,
+    height: 100,
   },
   value: {
     fontSize: 20,
-    marginBottom: 8,
+    marginBottom: 5,
     color: '#fff',
   },
 });

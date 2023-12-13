@@ -6,6 +6,7 @@ import Header from './components/Header';
 import PredictionBox from './components/PredictionBox';
 import { ApiResponseSensor } from './utils/API';
 import { fetchData, fetchSensorsData, retrieveSensorData, ApiResponse } from './utils/API'
+import Temperature from './components/Temperature';
 
 
 export default function App() {
@@ -41,7 +42,7 @@ export default function App() {
        
       <View style={styles.innerContainer}>
         <Header/>
-        {/* colocar o componente Temperature aqui */}
+        <Temperature/>
         <Window is_raining={uniqueSensor?.is_raining || false} />
         <PredictionBox apiResponse={predictionApiResponse} loading={isLoadingData}/>
       </View>

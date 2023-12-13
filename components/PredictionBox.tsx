@@ -11,11 +11,11 @@ interface PredictionBoxInterface{
 export default function PredictionBox({ apiResponse, loading }: PredictionBoxInterface) {
     const hours = [10, 13, 18]
 
-
+   
 
     if (loading) {
         return (
-          <View style={styles.container}>
+          <View style={styles.loadContainer}>
             <ActivityIndicator size="large" color="#000" />
           </View>
         );
@@ -43,7 +43,7 @@ export default function PredictionBox({ apiResponse, loading }: PredictionBoxInt
         <View style={styles.predictions}>
          
             {filterByHour(apiResponse, hours).map((prediction) =>(
-                <Prediction key={prediction.id} hour= {new Date(prediction.date).getHours()} prediction={prediction.temperature}/>
+                <Prediction key={prediction.id} prediction={prediction}/>
             ) )}
             
         </View>
@@ -52,13 +52,13 @@ export default function PredictionBox({ apiResponse, loading }: PredictionBoxInt
 }
 
 const styles = StyleSheet.create({
-    container: {
+    loadContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     wrapper:{
-        height: 134,
+        height: 170,
         width: 323,
         backgroundColor: 'rgba(255, 255, 255, 0.45)',
         borderRadius: 5,
@@ -76,6 +76,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 9
-    }
+    },
 
 })

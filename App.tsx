@@ -1,44 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import axios from 'axios';
 import Window from './components/Window';
 import Header from './components/Header';
-import Predictions from './components/Predictions';
+import PredictionBox from './components/PredictionBox';
+import { ApiResponseSensor } from './utils/API';
+import { fetchData, fetchSensorsData, retrieveSensorData, ApiResponse } from './utils/API'
+
 
 export default function App() {
-  const [data, setData] = useState< Response | null>(null);
+  const [predictionApiResponse, SetPredictionApiResponse] = useState< ApiResponse[] >([]);
+  const [sensorsApiResponse, SetSensorsApiResponse] = useState<ApiResponseSensor [] >([]);
+  const [uniqueSensor, setUniqueSensor] = useState< ApiResponseSensor | null>(null);
+  const [isLoadingData, setIsLoadingData] = useState(false);
+  const [data, setData] = useState< ApiResponseSensor | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataFromApi = async () => {
       try {
-        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/');
-        setData(response.data);
+        setIsLoadingData(true)
+        const predictionsApi = await fetchData()
+        const sensorsApi = await fetchSensorsData()
+        const uniqueSensor =  await retrieveSensorData(15)
+        SetPredictionApiResponse(predictionsApi)
+        SetSensorsApiResponse(sensorsApi)
+        setUniqueSensor(uniqueSensor)
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
+      } finally {
+        setIsLoadingData(false)
       }
     };
 
-    fetchData();
+    fetchDataFromApi();
   }, []);
 
+
   return (
-    
     <LinearGradient colors={['#608DE6', '#7FCED9']} style={styles.container}>
        
-      <View style={styles.container}>
-        {data ? (
-          <View>
-            <Header/>
-            {/* colocar o componente Temperature aqui */}
-            <Window is_raining={data.is_raining} />
-            <Predictions/>
-            
-          </View>
-        ) : (
-          <Text> Carregando dados...</Text>
-        )}
-
+      <View style={styles.innerContainer}>
+        <Header/>
+        {/* colocar o componente Temperature aqui */}
+        <Window is_raining={uniqueSensor?.is_raining || false} />
+        <PredictionBox apiResponse={predictionApiResponse} loading={isLoadingData}/>
       </View>
     </LinearGradient>
   );
@@ -47,12 +52,22 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   innerContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    height: '100%',
+    justifyContent: 'space-around',
   },
 });
+
+
+
+// Código removido
+// {data ? (
+//   <View>
+
+//     {/* colocar o componente Temperature aqui */}
+    
+//   </View>
+// ) : (
+//   <Text> Carregando dados...</Text>
+// )}

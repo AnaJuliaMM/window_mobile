@@ -120,33 +120,49 @@ export default function Temperature() {
   };
 
   return (
-    <View style={styles.header}>
-      {weatherData && (
-        <>
-          <Text style={styles.text}>{weatherData.temperature}º</Text>
-          {renderWeatherIcon()}
-          <View style={styles.state}>
-            <Text style={styles.stateName}>Umidade:</Text>
-            <Text style={styles.humidity}>{weatherData.humidity}%</Text>
-          </View>
-        </>
-      )}
-      {/* Restante do componente permanece o mesmo */}
+    <View style={styles.main}>
+      <View style={styles.header}>
+        {weatherData && (
+          <>
+            <Text style={styles.text}>{weatherData.temperature}º</Text>
+            {renderWeatherIcon()}
+            <View style={styles.state}>
+              <Text style={styles.stateName}>Umidade:</Text>
+              <Text style={styles.humidity}>{weatherData.humidity}%</Text>
+            </View>
+          </>
+        )}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  main: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',        
+    width: '100%',
+    height: '30%',
+    padding: 0,
+  },
+  
   header: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center',        
+    width: '60%',
+    height: '100%',
+    padding: 5,
+    backgroundColor: 'rgba(255, 255, 255, 0.45)',
+    borderRadius: 10,
   },
   text: {
     fontSize: 120,
-    color: 'white',
+    color: 'black',
     fontFamily: 'sans-serif',
     marginTop: -30,
+    paddingTop: 0,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -170,6 +186,5 @@ const styles = StyleSheet.create({
   humidity: {
     fontSize: 14,
     textAlign: 'center',
-    marginBottom: 20,
   }
 });

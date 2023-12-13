@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import axios from 'axios';
 import Window from './components/Window';
 import Header from './components/Header';
 import PredictionBox from './components/PredictionBox';
@@ -13,7 +12,7 @@ export default function App() {
   const [predictionApiResponse, SetPredictionApiResponse] = useState< ApiResponse[] >([]);
   const [sensorsApiResponse, SetSensorsApiResponse] = useState<ApiResponseSensor [] >([]);
   const [uniqueSensor, setUniqueSensor] = useState< ApiResponseSensor | null>(null);
-  const [isloadingData, setIsLoadingData] = useState(false);
+  const [isLoadingData, setIsLoadingData] = useState(false);
   const [data, setData] = useState< ApiResponseSensor | null>(null);
 
   useEffect(() => {
@@ -43,8 +42,8 @@ export default function App() {
       <View style={styles.innerContainer}>
         <Header/>
         {/* colocar o componente Temperature aqui */}
-        <Window is_raining={uniqueSensor.is_raining} />
-        <PredictionBox/>
+        <Window is_raining={uniqueSensor?.is_raining || false} />
+        <PredictionBox apiResponse={predictionApiResponse} loading={isLoadingData}/>
       </View>
     </LinearGradient>
   );

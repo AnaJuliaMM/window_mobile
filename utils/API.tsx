@@ -43,7 +43,7 @@ export const fetchData = async (): Promise<ApiResponse[] > => {
 // GET Request - Sensor
 export const fetchSensorsData = async (): Promise<ApiResponseSensor []> => {
   try {
-    const response: AxiosResponse< ApiResponseSensor []> = await axios.get(`${BASE_URL}/sensor`);
+    const response: AxiosResponse< ApiResponseSensor []> = await axios.get(`${BASE_URL}/chuva/`);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
@@ -57,7 +57,7 @@ export const fetchSensorsData = async (): Promise<ApiResponseSensor []> => {
 // GET Request - Retrieve sensor
 export const retrieveSensorData = async (id: number): Promise<ApiResponseSensor> => {
   try {
-    const response: AxiosResponse< ApiResponseSensor> = await axios.get(`${BASE_URL}/sensor/${id}`);
+    const response: AxiosResponse< ApiResponseSensor> = await axios.get(`${BASE_URL}/chuva/${id}`);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;

@@ -4,34 +4,15 @@ import Prediction from './Prediction'
 import { fetchData, ApiResponse } from '../utils/API'
 
 interface PredictionBoxInterface{
-    ApiResponse:  ApiResponse[]
+    apiResponse:  ApiResponse[],
+    loading: boolean
 }
 
-export default function PredictionBox() {
-    // Código APP.tsx
-    const [apiResponse, SetApiResponse] = useState< ApiResponse[]>([]);
-    const [loading, setLoading] = useState(false);
-    // Tratar o json
+export default function PredictionBox({ apiResponse, loading }: PredictionBoxInterface) {
     const hours = [10, 13, 18]
-    const [predictions, setPredictions] = useState <ApiResponse[] >([])
 
 
-    // Traz a previsão quando o página carrega
-    useEffect(() => {
-        const fetchDataFromApi = async () => {
-            try {
-              setLoading(true);
-              const response = await fetchData(); 
-              SetApiResponse(response);
-            } finally {
-              setLoading(false);
-            }
-        };
 
-        fetchDataFromApi();
-    }, []);
-
-    // Retorna o símbolo de carregamento caso os dados não forem recuperados
     if (loading) {
         return (
           <View style={styles.container}>
@@ -51,9 +32,6 @@ export default function PredictionBox() {
     }
 
 
-
-
-
   return (
     <View style={styles.wrapper}>
         <View style={styles.header}>
@@ -64,7 +42,7 @@ export default function PredictionBox() {
         </View>
         <View style={styles.predictions}>
          
-            {filterByHour(apiResponse, hours).map((prediction, index) =>(
+            {filterByHour(apiResponse, hours).map((prediction) =>(
                 <Prediction key={prediction.id} hour= {new Date(prediction.date).getHours()} prediction={prediction.temperature}/>
             ) )}
             

@@ -21,7 +21,7 @@ export default function PredictionBox() {
         const fetchDataFromApi = async () => {
             try {
               setLoading(true);
-              const response = await fetchData('previsao'); 
+              const response = await fetchData(); 
               SetApiResponse(response);
             } finally {
               setLoading(false);

@@ -6,12 +6,13 @@ import Window from './components/Window';
 import Header from './components/Header';
 import PredictionBox from './components/PredictionBox';
 import { ApiResponseSensor } from './utils/API';
-import { fetchData, ApiResponse } from './utils/API'
+import { fetchData, fetchSensorsData, retrieveSensorData, ApiResponse } from './utils/API'
 
 
 export default function App() {
-  const [predictionApiResponse, SetPredictionApiResponse] = useState< ApiResponse[] | ApiResponseSensor [] >([]);
-  const [sensorApiResponse, SetSensorApiResponse] = useState<ApiResponseSensor [] | ApiResponse[]>([]);
+  const [predictionApiResponse, SetPredictionApiResponse] = useState< ApiResponse[] >([]);
+  const [sensorsApiResponse, SetSensorsApiResponse] = useState<ApiResponseSensor [] >([]);
+  const [uniqueSensor, setUniqueSensor] = useState< ApiResponseSensor | null>(null);
   const [isloadingData, setIsLoadingData] = useState(false);
   const [data, setData] = useState< ApiResponseSensor | null>(null);
 
@@ -19,11 +20,12 @@ export default function App() {
     const fetchDataFromApi = async () => {
       try {
         setIsLoadingData(true)
-        const predictionsApi = await fetchData('previsao')
-        const sensorApi = await fetchData('sensor/15')
+        const predictionsApi = await fetchData()
+        const sensorsApi = await fetchSensorsData()
+        const uniqueSensor =  await retrieveSensorData(15)
         SetPredictionApiResponse(predictionsApi)
-        SetSensorApiResponse(sensorApi)
-        
+        SetSensorsApiResponse(sensorsApi)
+        setUniqueSensor(uniqueSensor)
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       } finally {
@@ -40,8 +42,8 @@ export default function App() {
        
       <View style={styles.innerContainer}>
         <Header/>
-            {/* colocar o componente Temperature aqui */}
-            <Window is_raining={data.is_raining} />
+        {/* colocar o componente Temperature aqui */}
+        <Window is_raining={uniqueSensor.is_raining} />
         <PredictionBox/>
       </View>
     </LinearGradient>

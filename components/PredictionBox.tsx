@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
         width: 323,
         backgroundColor: 'rgba(255, 255, 255, 0.45)',
         borderRadius: 5,
-        padding: 10
+        padding: 10,
+        alignSelf: 'center'
     },
     header:{
         width: '100%',

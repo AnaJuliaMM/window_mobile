@@ -28,19 +28,18 @@ export default function App() {
     
     <LinearGradient colors={['#608DE6', '#7FCED9']} style={styles.container}>
        
-      <View style={styles.container}>
+      <View style={styles.innerContainer}>
         {data ? (
           <View>
             <Header/>
             {/* colocar o componente Temperature aqui */}
             <Window is_raining={data.is_raining} />
-            <PredictionBox/>
             
           </View>
         ) : (
           <Text> Carregando dados...</Text>
         )}
-
+        <PredictionBox/>
       </View>
     </LinearGradient>
   );
@@ -49,12 +48,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   innerContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    height: '100%',
+    justifyContent: 'space-around',
   },
 });

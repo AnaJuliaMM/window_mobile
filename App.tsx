@@ -6,39 +6,42 @@ import Window from './components/Window';
 import Header from './components/Header';
 import PredictionBox from './components/PredictionBox';
 import { ApiResponseSensor } from './utils/API';
+import { fetchData, ApiResponse } from './utils/API'
 
 
 export default function App() {
+  const [predictionApiResponse, SetPredictionApiResponse] = useState< ApiResponse[] | ApiResponseSensor [] >([]);
+  const [sensorApiResponse, SetSensorApiResponse] = useState<ApiResponseSensor [] | ApiResponse[]>([]);
+  const [isloadingData, setIsLoadingData] = useState(false);
   const [data, setData] = useState< ApiResponseSensor | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataFromApi = async () => {
       try {
-        const response = await axios.get('https://sensorwindow.pythonanywhere.com/api/');
-        setData(response.data);
+        setIsLoadingData(true)
+        const predictionsApi = await fetchData('previsao')
+        const sensorApi = await fetchData('sensor/15')
+        SetPredictionApiResponse(predictionsApi)
+        SetSensorApiResponse(sensorApi)
+        
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
+      } finally {
+        setIsLoadingData(false)
       }
     };
 
-    fetchData();
+    fetchDataFromApi();
   }, []);
 
+
   return (
-    
     <LinearGradient colors={['#608DE6', '#7FCED9']} style={styles.container}>
        
       <View style={styles.innerContainer}>
-        {data ? (
-          <View>
-            <Header/>
+        <Header/>
             {/* colocar o componente Temperature aqui */}
             <Window is_raining={data.is_raining} />
-            
-          </View>
-        ) : (
-          <Text> Carregando dados...</Text>
-        )}
         <PredictionBox/>
       </View>
     </LinearGradient>
@@ -54,3 +57,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 });
+
+
+
+// Código removido
+// {data ? (
+//   <View>
+
+//     {/* colocar o componente Temperature aqui */}
+    
+//   </View>
+// ) : (
+//   <Text> Carregando dados...</Text>
+// )}

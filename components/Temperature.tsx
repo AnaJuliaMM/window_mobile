@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
   stateName: {
     width: 97,
     fontSize: 14,
-    color: '#fff',
     fontWeight: 'bold'
   },
   humidity: {

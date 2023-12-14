@@ -4,12 +4,12 @@
     "slug": "window_mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/closed_window.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/opened_window.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#fff"
+      "image": "./assets/splash_screen.png",
+      "resizeMode": "cover",
+      "backgroun": "fffff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/splash_screen.png",
         "backgroundColor": "#ffffff"
       }
     },

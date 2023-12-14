@@ -13,13 +13,14 @@ const WeatherComponent: React.FC<WeatherComponentInterface> = ({apiResponse}) =>
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data: ApiResponse[] = apiResponse;
+        const response = await axios.get<ApiResponse[]>('http://sensorwindow.pythonanywhere.com/api/previsao/');
+        const data: ApiResponse[] = response.data;
 
         // Verificar se há algum dado na resposta
         if (data.length > 0) {
           // Obter a data e hora atual
           const currentDate = new Date();
-          const currentHour = currentDate.getHours();
+          const currentHour = currentDate.getHours();       
 
           // Encontrar o item correspondente à hora mais próxima
           let closestData = data[0];
@@ -36,7 +37,6 @@ const WeatherComponent: React.FC<WeatherComponentInterface> = ({apiResponse}) =>
               closestDateDifference = dateDifference;
             }
           });
-
           setWeatherData(closestData);
         }
       } catch (error) {
@@ -46,6 +46,9 @@ const WeatherComponent: React.FC<WeatherComponentInterface> = ({apiResponse}) =>
 
     fetchData();
   }, []);
+
+
+
 
   const formatDateTime = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {

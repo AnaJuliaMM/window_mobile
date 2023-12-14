@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',        
     width: '100%',
     height: '30%',
-    padding: 0,
   },
   
   header: {
@@ -154,11 +153,9 @@ const styles = StyleSheet.create({
     width: '60%',
     height: '100%',
     padding: 5,
-    backgroundColor: 'rgba(255, 255, 255, 0.45)',
-    borderRadius: 10,
   },
   text: {
-    fontSize: 110,
+    fontSize: 120,
     color: 'white',
     fontFamily: 'sans-serif',
     marginTop: -30,
@@ -180,11 +177,13 @@ const styles = StyleSheet.create({
   },
   stateName: {
     width: 97,
-    fontSize: 14,
-    fontWeight: 'bold'
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'white'
   },
   humidity: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
+    color:'white'
   }
 });

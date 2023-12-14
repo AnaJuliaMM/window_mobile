@@ -13,13 +13,13 @@ export default function PredictionBox({ apiResponse, loading }: PredictionBoxInt
 
    
 
-    if (loading) {
+    /*if (loading) {
         return (
           <View style={styles.loadContainer}>
             <ActivityIndicator size="large" color="#000" />
           </View>
         );
-    }
+    }*/
 
 
     const filterByHour = (ApiResponse: ApiResponse[], numbers: number[]) => {
@@ -35,7 +35,7 @@ export default function PredictionBox({ apiResponse, loading }: PredictionBoxInt
   return (
     <View style={styles.wrapper}>
         <View style={styles.header}>
-            <Text style={{fontWeight: 'bold'}}>PREDIÇÃO HORÁRIA</Text>
+            <Text style={{fontWeight: 'bold', color: 'white'}}>PREDIÇÃO HORÁRIA</Text>
             <Image
                 source={require('../assets/setting.png')}
                 style={{ width: 22, height: 22 }}/>
@@ -56,11 +56,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        
     },
     wrapper:{
         height: 170,
         width: 323,
-        backgroundColor: 'rgba(255, 255, 255, 0.45)',
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
         borderRadius: 5,
         padding: 10,
         alignSelf: 'center'
@@ -69,13 +70,14 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        color: 'white'
     },
     predictions:{
         width: '100%',
         height: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: 9
+        paddingTop: 9,
     },
 
 })

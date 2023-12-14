@@ -24,9 +24,11 @@ const styles = StyleSheet.create({
         padding: 5,
         backgroundColor: '#fff',
         borderRadius: 5,
-        opacity: 0.8
+        opacity: 0.8,
+        color: 'white'
     },
     temperature:{
-        fontSize: 80
+        fontSize: 80,
+        color: 'white'
     }
 })

@@ -27,10 +27,10 @@ export default function Prediction({prediction}: PredictionInterface) {
 
   return (
     <View style={styles.wrapper}>
-        <Text style={{fontSize: 15}}>{hour == 10? 'Manhã': hour == 13? 'Tarde' : 'Noite'}</Text>
-        <Text style={{fontSize: 13}}>{hour}h</Text>
+        <Text style={{fontSize: 15, color: 'white'}}>{hour == 10? 'Manhã': hour == 13? 'Tarde' : 'Noite'}</Text>
+        <Text style={{fontSize: 13, color: 'white'}}>{hour}h</Text>
         {renderWeatherIcon()}
-        <Text style={{fontSize: 17}}>{prediction.temperature}°</Text>
+        <Text style={{fontSize: 17,  color: 'white'}}>{prediction.temperature}°</Text>
     </View>
   )
 }
@@ -40,11 +40,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center',
-        gap: 4
+        gap: 4,
     },
     icon: {
         width: 30,
         height: 30,
+        
     }
 
 })

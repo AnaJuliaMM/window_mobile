@@ -76,12 +76,12 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 18,
+    padding: 0,
     height: 100,
   },
   value: {
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: 10,
     color: '#fff',
   },
 });

@@ -35,14 +35,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    color: 'white',
-    fontWeight:'bold',
-    fontSize: 18,
-    paddingBottom: 10
-  },
   imageContainer: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   image: {
     width: 150,
@@ -52,6 +46,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight:'bold',
     fontSize: 18,
-    paddingBottom: 20
+    paddingBottom: 20,
+    paddingTop: 20
   },
 });

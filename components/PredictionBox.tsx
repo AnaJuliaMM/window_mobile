@@ -11,16 +11,6 @@ interface PredictionBoxInterface{
 export default function PredictionBox({ apiResponse, loading }: PredictionBoxInterface) {
     const hours = [10, 13, 18]
 
-   
-
-    /*if (loading) {
-        return (
-          <View style={styles.loadContainer}>
-            <ActivityIndicator size="large" color="#000" />
-          </View>
-        );
-    }*/
-
 
     const filterByHour = (ApiResponse: ApiResponse[], numbers: number[]) => {
         const predictions: ApiResponse[] = []

@@ -14,7 +14,7 @@ export default function Window({ is_raining }: WindowProps) {
         <View style={styles.imageContainer}>
           <Text style={styles.statusText}>Aberta</Text>
           <Image
-            source={require('../assets/closed_window.png')}
+            source={require('../assets/opened_window.png')}
             style={styles.image}
           />
           
@@ -23,7 +23,7 @@ export default function Window({ is_raining }: WindowProps) {
         <View style={styles.imageContainer}>
          <Text style={styles.statusText}>Fechada</Text>
           <Image
-            source={require('../assets/opened_window.png')}
+            source={require('../assets/closed_window.png')}
             style={styles.image}
           />
         

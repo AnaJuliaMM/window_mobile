@@ -3,11 +3,8 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import axios from 'axios';
 import { ApiResponse } from '../utils/API';
 
-interface WeatherComponentInterface{
-  apiResponse:  ApiResponse[],
-}
 
-const WeatherComponent: React.FC<WeatherComponentInterface> = ({apiResponse}) => {
+export default function WeatherComponent () {
   const [weatherData, setWeatherData] = useState<ApiResponse | null>(null);
 
   useEffect(() => {
@@ -89,4 +86,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WeatherComponent;

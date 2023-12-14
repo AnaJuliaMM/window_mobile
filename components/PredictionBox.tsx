@@ -5,10 +5,9 @@ import { fetchData, ApiResponse } from '../utils/API'
 
 interface PredictionBoxInterface{
     apiResponse:  ApiResponse[],
-    loading: boolean
 }
 
-export default function PredictionBox({ apiResponse, loading }: PredictionBoxInterface) {
+export default function PredictionBox({ apiResponse }: PredictionBoxInterface) {
     const hours = [10, 13, 18]
 
 

@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { ApiResponse } from '../utils/API'
+import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 interface PredictionInterface{
     prediction: ApiResponse
@@ -13,15 +16,15 @@ export default function Prediction({prediction}: PredictionInterface) {
 
     const renderWeatherIcon = () => {
         if (humidity > 80) 
-            return <Image source={require('../assets/raincloud.png')} style={styles.icon} />
+            return <FontAwesome5 name="cloud-rain" size={24} color="white" />
         else if (humidity >= 70 && humidity <= 79) 
-            return <Image source={require('../assets/cloud.png')} style={styles.icon} />
+            return <FontAwesome name="cloud" size={24} color="white" />
         else if (humidity > 80 && wind_velocity > 30) 
-            return <Image source={require('../assets/storm.png')} style={styles.icon} />
+            return <Ionicons name="ios-thunderstorm-sharp" size={24} color="white" />
         else if (hour >= 6 && hour < 18) 
-            return <Image source={require('../assets/sun.png')} style={styles.icon} />
+            return <Ionicons name="sunny-sharp" size={24} color="white" />
         else 
-            return <Image source={require('../assets/moon.png')} style={styles.icon} />      
+            return <Ionicons name="ios-moon-sharp" size={24} color="white" />     
     }   
 
 

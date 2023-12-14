@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 interface WeatherData {
   city_id: number;
@@ -81,7 +83,7 @@ export default function Temperature() {
       return (
         <View style={styles.state}>
           <Text style={styles.stateName}>Chuva</Text>
-          <Image source={require('../assets/raincloud.png')} style={styles.icon} />
+          <FontAwesome5 name="cloud-rain" size={24} color="white" />
         </View>
       );
     } else if (humidity >= 70 && humidity <= 79) {
@@ -89,7 +91,7 @@ export default function Temperature() {
       return (
         <View style={styles.state}>
           <Text style={styles.stateName}>Nublado</Text>
-          <Image source={require('../assets/cloud.png')} style={styles.icon} />
+          <Ionicons name="cloudy" size={24} color="white" />
         </View>
       );
     } else if (humidity > 80 && wind_velocity > 30) {
@@ -97,7 +99,7 @@ export default function Temperature() {
       return (
         <View style={styles.state}>
           <Text style={styles.stateName}>Tempestade</Text>
-          <Image source={require('../assets/storm.png')} style={styles.icon} />
+          <Ionicons name="thunderstorm-sharp" size={24} color="white" />
         </View>
       );
     } else if (currentHour >= 6 && currentHour < 18) {
@@ -105,7 +107,7 @@ export default function Temperature() {
       return (
         <View style={styles.state}>
           <Text style={styles.stateName}>Ensolarado</Text>
-          <Image source={require('../assets/sun.png')} style={styles.icon} />
+          <Ionicons name="sunny" size={24} color="white" />
         </View>
       );
     } else {
@@ -113,7 +115,7 @@ export default function Temperature() {
       return (
         <View style={styles.state}>
           <Text style={styles.stateName}>Noite</Text>
-          <Image source={require('../assets/moon.png')} style={styles.icon} />
+          <Ionicons name="moon" size={24} color="black" />
         </View>
       );
     }
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'sans-serif',
     marginTop: -30,
-    paddingTop: 0,
+    paddingLeft: 30
   },
   iconContainer: {
     flexDirection: 'row',

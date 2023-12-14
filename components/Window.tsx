@@ -14,7 +14,7 @@ export default function Window({ is_raining }: WindowProps) {
         <View style={styles.imageContainer}>
           <Text style={styles.statusText}>Aberta</Text>
           <Image
-            source={require('../assets/opened_window.png')}
+            source={require('../assets/closed_window.png')}
             style={styles.image}
           />
           
@@ -23,7 +23,7 @@ export default function Window({ is_raining }: WindowProps) {
         <View style={styles.imageContainer}>
          <Text style={styles.statusText}>Fechada</Text>
           <Image
-            source={require('../assets/closed_window.png')}
+            source={require('../assets/opened_window.png')}
             style={styles.image}
           />
         
@@ -40,7 +40,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    marginBottom: 10
+    fontWeight:'bold',
+    fontSize: 18,
+    paddingBottom: 10
   },
   imageContainer: {
     alignItems: 'center',
@@ -53,6 +55,6 @@ const styles = StyleSheet.create({
   statusText: {
     color: 'white',
     fontWeight: 'bold',
-    margin: 2,
+    margin: 5,
   },
 });

@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   text: {
-    fontSize: 120,
+    fontSize: 110,
     color: 'white',
     fontFamily: 'sans-serif',
     marginTop: -30,

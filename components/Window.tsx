@@ -9,14 +9,13 @@ export default function Window({ is_raining }: WindowProps) {
     const [isRaining, setIsRaining] = React.useState(false);
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Status da janela:</Text>
       {is_raining ? (
         <View style={styles.imageContainer}>
           <Image
             source={require('../assets/closed_window.png')}
             style={styles.image}
           />
-          <Text style={styles.statusText}>Aberta</Text>
+          <Text style={styles.statusText}>Janela Fechada | Chovendo! </Text>
         </View>
       ) : (
         <View style={styles.imageContainer}>
@@ -24,7 +23,7 @@ export default function Window({ is_raining }: WindowProps) {
             source={require('../assets/opened_window.png')}
             style={styles.image}
           />
-          <Text style={styles.statusText}>Fechada</Text>
+          <Text style={styles.statusText}>Janela Aberta | Não está chovendo!  </Text>
         </View>
       )}
     </View>
@@ -46,8 +45,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
   },
   statusText: {
     color: 'white',

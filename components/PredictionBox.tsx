@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     wrapper:{
         height: 170,
         width: 323,
-        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        backgroundColor: 'rgba(18, 10, 143, 0.10)',
         borderRadius: 5,
         padding: 10,
         alignSelf: 'center'

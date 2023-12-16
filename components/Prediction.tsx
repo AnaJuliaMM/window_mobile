@@ -30,7 +30,7 @@ export default function Prediction({prediction}: PredictionInterface) {
 
   return (
     <View style={styles.wrapper}>
-        <Text style={{fontSize: 15, color: 'white'}}>{hour == 10? 'Manhã': hour == 13? 'Tarde' : 'Noite'}</Text>
+        <Text style={{fontSize: 15, color: 'white'}}>{hour === 10? 'Manhã': hour === 13? 'Tarde' : 'Noite'}</Text>
         <Text style={{fontSize: 13, color: 'white'}}>{hour}h</Text>
         {renderWeatherIcon()}
         <Text style={{fontSize: 17,  color: 'white'}}>{prediction.temperature}°</Text>
